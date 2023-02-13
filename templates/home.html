@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}
+home
+{% endblock %}
+
+
+{% block content %}
+<div class="form-seperator">
+    <form class="" action="your-url" method="post">
+        <div class="form-group">
+            <div class="input-container">
+                {% with messages = get_flashed_messages(with_categories = true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <h2 style="color: red;"> {{ message }} </h2>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h1 class="head">URL Shortener</h1>
+                <input type="url" name="url" placeholder="Website URL" required>
+                <input type="text" name="code" placeholder="Short Name" required>
+                <button type="submit">get url</button>
+            </div>
+        </div>
+    </form>
+    <form class="" action="your-url" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <div class="input-container">
+                {% with messages = get_flashed_messages(with_categories = true) %}
+                {% if messages %}
+                {% for category, message in messages %}
+                <h2 style="color: red;"> {{ message }} </h2>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+                <h1 class="head">Upload file</h1>
+                <input type="file" name="file" placeholder="Upload file" required>
+                <input type="text" name="code" placeholder="Short Name" required>
+                <button type="submit">get url</button>
+            </div>
+        </div>
+    </form>
+    {% if codes%}
+    <h3>Codes you have created:</h3>
+    <ul>
+        {% for code in codes %}
+        <li><a href="{{ url_for('redirect_to_url', code=code) }}" target="_blank"> {{ code }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+
+{% endblock %}
